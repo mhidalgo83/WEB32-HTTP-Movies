@@ -3,13 +3,13 @@ import { Route } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import Movie from "./Movies/Movie";
+import AddMovie from "./Movies/AddMovie";
 import axios from "axios";
 import UpdateMovie from "./Movies/UpdateMovie";
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const getMovieList = () => {
     axios
@@ -24,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, [isSubmitted]);
+  }, []);
 
   return (
     <>
@@ -47,12 +47,15 @@ const App = () => {
         render={(props) => (
           <UpdateMovie
             {...props}
-            setIsSubmitted={setIsSubmitted}
             movieList={movieList}
             setMovieList={setMovieList}
           />
         )}
       />
+
+      <Route path="/add-movie">
+        <AddMovie movieList={movieList} setMovieList={setMovieList} />
+      </Route>
     </>
   );
 };

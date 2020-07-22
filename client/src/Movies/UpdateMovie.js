@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import MovieForm from "./MovieForm";
 
 const UpdateMovie = (props) => {
   const { push } = useHistory();
@@ -28,6 +29,9 @@ const UpdateMovie = (props) => {
 
   const handleChanges = (e) => {
     setMovie({ ...movie, [e.target.name]: e.target.value });
+    if (e.target.name === "stars") {
+      setMovie({ ...movie, stars: e.target.value.split(",") });
+    }
   };
 
   const handleUpdate = (e) => {
@@ -52,6 +56,7 @@ const UpdateMovie = (props) => {
   return (
     <div>
       <h2>Update Movie</h2>
+      {/* <MovieForm movie={movie} /> */}
       <form onSubmit={handleUpdate}>
         <input
           type="text"
